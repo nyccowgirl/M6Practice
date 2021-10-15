@@ -6,16 +6,20 @@ public class NumberFilePractice {
     public static void main(String[] args) {
 
         Scanner userInput = new Scanner(System.in);
-        System.out.print("Enter filename with .txt extension: ");
-
-        String userFile = userInput.nextLine();
 
         PrintWriter outFile = null;
-        try {
-            outFile = new PrintWriter(new BufferedWriter(new FileWriter(userFile, false)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        do {
+            System.out.print("Enter filename with .txt extension: ");
+            String userFile = userInput.nextLine();
+
+            try {
+                outFile = new PrintWriter(new BufferedWriter(new FileWriter(userFile, false)));
+            } catch (IOException e) {
+                System.out.print(e.getMessage());
+                System.out.println(" is not a valid file name.");
+            }
+        } while (outFile == null);
+
 
         double number;
         boolean validInput = false;
@@ -25,7 +29,7 @@ public class NumberFilePractice {
                 System.out.print("Enter number " + i + ": ");
                 try {
                     number = Double.parseDouble(userInput.nextLine());
-                    outFile.append(String.valueOf(number) + "\n");
+                    outFile.append(String.valueOf(number)).append("\n");
                     validInput = true;
                 } catch (NumberFormatException e) {
                     System.out.print(e.getMessage());
